@@ -4,7 +4,6 @@ import {
   Routes,
   Route,
   Link,
-  useMatch,
   useParams,
 } from "react-router-dom";
 
@@ -18,16 +17,15 @@ function App() {
   }
 
   function Topics() {
-    let match = useMatch("/topics/*");
     return (
       <div>
         <h2>Topics</h2>
         <ul>
           <li>
-            <Link to={`${match.pathname}/cats`}>Cats</Link>
+            <Link to="/topics/cats">Cats</Link>
           </li>
           <li>
-            <Link to={`${match.pathname}/dogs`}>Dogs</Link>
+            <Link to="/topics/dogs">Dogs</Link>
           </li>
         </ul>
       </div>
@@ -36,7 +34,7 @@ function App() {
 
   function Topic() {
     let { topicId } = useParams();
-    return <h3>Requested topic ID: {topicId}</h3>;
+    return <h3>Requested topic: {topicId}</h3>;
   }
 
   return (
@@ -56,9 +54,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/topics" element={<Topics />}>
-            <Route path=":topicId" element={<Topic />} />
-          </Route>
+          <Route path="/topics" element={<Topics />} />
+          <Route path="/topics/:topicId" element={<Topic />} />
           <Route path="*" element={<h3>Page not found</h3>} />
         </Routes>
       </div>
